@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:100,200,300,400,400i,500,600,700,700i,800');
+
+.html {
+  height: 100%;
+
+  .body {
+    margin: 0;
+    height: 100%;
+
+    font-size: 14px;
+    font-family: 'Source Sans Pro', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    background: url(assets/images/background.png);
+    background-repeat: repeat;
+
+    .content {
+      height: 100%;
+    }
+  }
+}
+
+*, :after, :before {
+  box-sizing: border-box;
+}
+
+:global(.CodeMirror) {
+  padding: 20px;
+  height: auto !important;
+
+  box-shadow: none !important;
+}

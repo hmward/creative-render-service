@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://s3-us-west-2.amazonaws.com/node-widgets/latest/node-widgets.umd.production.js"></script>
+    <style>
+      .content {
+        padding: 12px;
+      }
+    </style>
+    <script>
+      window.closePopover = function () {
+        popoverProps.show = false;
+      }
+
+      window.showPopover = function () {
+        popoverProps.show = true;
+      }
+
+      const $content = document.createElement('div');
+      $content.textContent = 'Popover content.';
+      $content.classList.add('content');
+    
+      const popoverProps = {
+        show: false,
+        content: $content,
+        onRequestClose: window.closePopover,
+      };
+
+      window.onload = () => {
+        const $container = document.querySelector('#container');
+
+        NodeWidgets.renderElement($container, 'Popover', popoverProps);
+      }
+    </script>
+  </head>
+  <body>
+    <button onclick="showPopover()">Click me</button>
+    <div id="container"></div>
+  </body>
+</html>

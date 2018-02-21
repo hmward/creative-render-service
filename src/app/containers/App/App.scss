@@ -1,0 +1,65 @@
+.App {
+  display: flex;
+  flex-direction: column;
+
+  height: calc(100% - 50px);
+
+  .header {
+    z-index: 2;
+    padding: 0 18px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    height: 80px;
+
+    .logo {
+      width: 36px;
+      height: 34px;
+
+      background: url(assets/images/logo.png);
+      background-repeat: no-repeat;
+    }
+
+    .title {
+      margin-left: 24px;
+
+      cursor: pointer;
+      user-select: none;
+      
+      font-weight: bold;
+      color: #52008C;
+      font-size: 19px;
+    }
+  }
+
+  .content {
+    z-index: 1;
+    flex: 1;
+    
+    display: flex;
+    flex-direction: row;
+
+    overflow: hidden;
+    
+    .drawer {
+      height: 100%;
+
+      .title {
+        margin: 5px 0;
+        padding-left: 10px;
+        color: #9e9e9e;
+        font-size: 14px;
+        font-weight: 500;
+      }
+    }
+
+    .children {
+      padding: 20px;
+      flex: 1;
+
+      overflow-y: scroll;
+    }
+  }
+}
