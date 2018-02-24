@@ -24,7 +24,7 @@
     "test": "karma start config/test/karma.conf.js",
     "test:ci": "better-npm-run test:ci",
     "test:api": "better-npm-run test:api",
-    "lint": "tslint -p tsconfig.json --type-check \"src/**/*.ts*\"",
+    "lint": "tslint -p tsconfig.json --type-check",
     "deploy": "ts-node ./scripts/deploy.ts $*",
     "build:image": "ENV=production bash scripts/build_image.sh",
     "upload": "ts-node ./scripts/upload.ts",
