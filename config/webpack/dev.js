@@ -43,25 +43,20 @@ const config = {
       enforce: 'pre',
       test: /\.tsx?$/,
       loader: 'tslint-loader'
-    },
-    {
+    }, {
       test: /\.tsx?$/,
       loader: 'react-hot-loader/webpack!awesome-typescript-loader'
-    },
-    {
+    }, {
       test: /\.jsx$/,
       loader: 'babel-loader'
-    },
-    {
+    }, {
       test: /\.js$/,
       exclude: /node_modules/,
       loader: 'babel-loader'
-    },
-    {
+    }, {
       test: /\.json$/,
       loader: 'json-loader'
-    },
-    {
+    }, {
       test: /\.css$/,
       include: path.resolve('./src/app'),
       loaders: [
@@ -69,16 +64,14 @@ const config = {
         'css-loader?modules&importLoaders=2&localIdentName=[local]___[hash:base64:5]',
         'postcss-loader'
       ]
-    },
-    {
+    }, {
       test: /\.css$/,
       exclude: path.resolve('./src/app'),
       loaders: [
         'style-loader',
         'css-loader'
       ]
-    },
-    {
+    }, {
       test: /\.scss$/,
       use: [{
         loader: 'style-loader'
@@ -93,28 +86,25 @@ const config = {
       }, {
         loader: 'sass-loader'
       }]
-    },
-    {
+    }, {
       test: /\.eot(\?.*)?$/,
       loader: 'file-loader?name=fonts/[hash].[ext]'
-    },
-    {
+    }, {
       test: /\.(woff|woff2)(\?.*)?$/,
       loader: 'file-loader?name=fonts/[hash].[ext]'
-    },
-    {
+    }, {
+      test: /\.(obj|mtl)$/i,
+      loader: 'file-loader?name=obj/[hash].[ext]'
+    }, {
       test: /\.ttf(\?.*)?$/,
       loader: 'url-loader?limit=10000&mimetype=application/octet-stream&name=fonts/[hash].[ext]'
-    },
-    {
+    }, {
       test: /\.svg(\?.*)?$/,
       loader: 'url-loader?limit=10000&mimetype=image/svg+xml&name=fonts/[hash].[ext]'
-    },
-    {
+    }, {
       test: /\.(jpe?g|png|gif)$/i,
       loader: 'url-loader?limit=1000&name=images/[hash].[ext]'
-    }
-    ]
+    }]
   },
 
   plugins: [

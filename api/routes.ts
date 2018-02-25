@@ -1,4 +1,5 @@
 import * as express from 'express';
+import * as path from 'path';
 import { isEmpty } from 'lodash';
 
 import Logger from './utils/Logger';
@@ -25,6 +26,8 @@ router.use((req, res, next) => {
 *                      Sub Routes                       *
 ********************************************************/
 // no sub routes
+// serve asset bundles
+router.use('/assets', express.static(path.join(__dirname, 'static/assets')));
 
 // Error handling
 router.use((err, _1, res, _2) => {
