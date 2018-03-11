@@ -8,8 +8,8 @@ const OrbitControls = require('three-orbit-controls')(THREE);
 const styles = require('./ModelView.scss');
 
 interface IModelViewProps {
-  modelPath: string;
-  materialPath: string;
+  width: number;
+  height: number;
 }
 
 /**
@@ -37,13 +37,41 @@ export class ModelView extends React.Component<IModelViewProps, {}> {
    * @inheritDoc
    */
   public componentDidMount() {
-    this.scene = new THREE.Scene();
+    this.init();
+    this.initLight();
+    this.loadModal();
 
-    this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    this.update();
+  }
+
+  /**
+   * @inheritdoc
+   */
+  public render() {
+    const { width, height } = this.props;
+
+    return (
+      <div className={styles.ModelView} style={{
+        width: `${width}px`,
+        height: `${height}px`,
+      }}>
+        <div id={this.id} />
+      </div>
+    );
+  }
+
+  private init() {
+    const { width, height } = this.props;
+    this.scene = new THREE.Scene();
+    this.scene.background = new THREE.Color(0xcce0ff);
+    this.scene.fog = new THREE.Fog(0xcce0ff, 500, 10000);
+    this.scene.add(new THREE.AmbientLight(0x666666));
+
+    this.camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
     this.camera.position.z = 200;
 
     this.renderer = new THREE.WebGLRenderer();
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    this.renderer.setSize(width, height);
     document.getElementById(this.id).appendChild(this.renderer.domElement);
 
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
@@ -51,52 +79,53 @@ export class ModelView extends React.Component<IModelViewProps, {}> {
     this.controls.dampingFactor = 0.25;
     this.controls.enableZoom = true;
 
+    const loader = new THREE.TextureLoader();
+    const groundTexture = loader.load(require('assets/obj/grasslight-big.jpg'));
+    groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
+    groundTexture.repeat.set(25, 25);
+    groundTexture.anisotropy = 16;
+    const groundMaterial = new THREE.MeshLambertMaterial({ map: groundTexture });
+    const mesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(20000, 20000), groundMaterial);
+    mesh.position.y = - 250;
+    mesh.rotation.x = - Math.PI / 2;
+    mesh.receiveShadow = true;
+    this.scene.add(mesh);
+  }
+
+  private initLight() {
     const keyLight = new THREE.DirectionalLight(new THREE.Color('hsl(30, 100%, 75%)'), 1.0);
     keyLight.position.set(-100, 0, 100);
     const fillLight = new THREE.DirectionalLight(new THREE.Color('hsl(240, 100%, 75%)'), 0.75);
     fillLight.position.set(100, 0, 100);
     const backLight = new THREE.DirectionalLight(0xffffff, 1.0);
     backLight.position.set(100, 0, -100).normalize();
+
     this.scene.add(keyLight);
     this.scene.add(fillLight);
     this.scene.add(backLight);
+  }
 
+  private loadModal() {
     const mtlLoader = new MTLLoader();
     mtlLoader.setTexturePath('api/assets/');
-    mtlLoader.setPath('');
     mtlLoader.load(require('assets/obj/r2-d2.mtl'), (materials) => {
       console.log(materials);
       materials.preload();
 
       const objLoader = new OBJLoader();
       objLoader.setMaterials(materials);
-      objLoader.setPath('');
       objLoader.load(require('assets/obj/r2-d2.obj'), (object) => {
         console.log(object);
         this.scene.add(object);
         object.position.y -= 60;
       });
     });
-
-    this.animate();
   }
 
-  private animate() {
-    console.log('animate');
-    requestAnimationFrame(() => this.animate());
+  private update() {
+    requestAnimationFrame(() => this.update());
 
     this.controls.update();
     this.renderer.render(this.scene, this.camera);
-  }
-
-  /**
-   * @inheritdoc
-   */
-  public render() {
-    return (
-      <div className={styles.ModelView}>
-        <div id={this.id} />
-      </div>
-    );
   }
 }

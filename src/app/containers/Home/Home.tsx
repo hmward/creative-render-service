@@ -24,7 +24,7 @@ export class Home extends React.Component<{}, {}> {
     return (
       <div className={styles.Home}>
         <div>Home</div>
-        <ModelView modelPath="assets/obj/r2-d2.obj" materialPath="assets/obj/r2-d2.mtl" />
+        <ModelView width={800} height={600} />
       </div>
     );
   }

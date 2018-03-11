@@ -1,8 +1,3 @@
-/**
- * @author lucascassiano / http://lucascassiano.github.io
- * @edited as an ES6 module based on script from mrdoob / http://mrdoob.com/
- */
-
 import * as THREE from 'three';
 
 class OBJLoader {

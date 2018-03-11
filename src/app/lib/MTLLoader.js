@@ -1,9 +1,3 @@
-/**
- * Loads a Wavefront .mtl file specifying materials
- *
- * @author angelxuanchang
- * edited by lucascassiano as an ES6 module - http://lucascassiano.github.io
- */
 import * as THREE from 'three';
 
 class MTLLoader {
