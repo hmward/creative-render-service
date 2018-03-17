@@ -43,6 +43,8 @@ export class ModelView extends React.Component<IModelViewProps, {}> {
     this.initLight();
     this.initSky();
     this.loadModel();
+    // this.loadModel2();
+    this.initFloor();
 
     this.update();
   }
@@ -106,19 +108,38 @@ export class ModelView extends React.Component<IModelViewProps, {}> {
   private loadModel() {
     const mtlLoader = new MTLLoader();
     mtlLoader.setTexturePath('api/assets/');
-    mtlLoader.load(require('assets/obj/r2-d2.mtl'), (materials) => {
+    mtlLoader.load('api/assets/r2-d2.mtl', (materials) => {
       console.log(materials);
       materials.preload();
 
       const objLoader = new OBJLoader();
       objLoader.setMaterials(materials);
-      objLoader.load(require('assets/obj/r2-d2.obj'), (object) => {
+      objLoader.load('api/assets/r2-d2.obj', (object) => {
         console.log(object);
         this.scene.add(object);
 
         object.position.y -= 60;
       });
     });
+  }
+
+  // private loadModel2() {
+  //   const objLoader = new THREE.ObjectLoader();
+  //   objLoader.load('api/assets/wooden-coffe-table.json', (object) => {
+  //     console.log(object);
+  //     this.scene.add(object);
+  //   });
+  // }
+
+  private initFloor() {
+    const floorMaterial = new THREE.MeshPhongMaterial({
+      color: new THREE.Color(0xffffff),
+    });
+    const floorMesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(100, 100), floorMaterial);
+    floorMesh.position.setY(-80);
+    floorMesh.rotation.x = - Math.PI / 2;
+
+    this.scene.add(floorMesh);
   }
 
   private update() {
