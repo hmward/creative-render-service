@@ -13,10 +13,6 @@ fs.readdirSync('node_modules')
   .forEach((mod) => nodeModules[mod] = 'commonjs ' + mod);
 
 const plugins = [
-  new webpack.LoaderOptionsPlugin({
-    debug: false,
-    options: {},
-  }),
   new webpack.DefinePlugin({
     'process.env': {
       VERSION: JSON.stringify(require('../../package.json').version),

@@ -50,6 +50,7 @@ const config: webpack.Configuration = {
 
   output: {
     path: path.resolve('./build/public'),
+    publicPath: '/public/',
     filename: 'js/[name].js',
     pathinfo: true,
   },

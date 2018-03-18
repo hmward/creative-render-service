@@ -27,7 +27,7 @@ export function configureStore(history, initialState?: IStore): Redux.Store<ISto
     applyMiddleware(...middlewares),
   ));
 
-  if (appConfig.env === 'development' && module.hot) {
+  if (module.hot) {
     module.hot.accept('./reducers', () => {
       store.replaceReducer((require('./reducers').default));
     });
