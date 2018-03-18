@@ -1,6 +1,6 @@
 {
   "extends": [
-    "tslint:latest",
+    "tslint:recommended",
     "tslint-react"
   ],
   "rules": {
@@ -27,6 +27,7 @@
     ],
     "no-unused-expression": false,
     "no-submodule-imports": false,
+    "no-implicit-dependencies": false,
     "jsx-alignment": [
       false
     ],

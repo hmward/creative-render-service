@@ -1,21 +1,21 @@
 import * as express from 'express';
-import * as bodyParser from 'body-parser';
 
 import Logger from './utils/Logger';
 import * as config from '../config/main';
 import routes from './routes';
 
 const logger = new Logger();
-const app = express();
 
-app.use(bodyParser.json());
+const server = express();
+
+console.log(process.env.NODE_ENV);
 
 /**********************************************************
 *                         Routes                          *
 **********************************************************/
-app.use('/', routes);
+server.use('/', routes);
 
-app.listen(config.apiPort, (err) => {
+server.listen(config.apiPort, (err) => {
   if (err) {
     logger.error('Failed to start the api server.', err);
   } else {
@@ -25,4 +25,4 @@ app.listen(config.apiPort, (err) => {
   }
 });
 
-export default app;
+export default server;
