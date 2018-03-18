@@ -8,16 +8,11 @@ import { Paper } from 'material-ui';
 import { getMuiTheme, MuiThemeProvider } from 'material-ui/styles';
 import { grey900 } from 'material-ui/styles/colors';
 
-import * as injectTapEventPlugin from 'react-tap-event-plugin';
 import 'whatwg-fetch';
 
 import { Footer } from 'components';
 
 import routeActions from 'redux/actions/routeAction';
-
-// Needed for onTouchTap
-// http://stackoverflow.com/a/34015469/988941
-injectTapEventPlugin();
 
 // theme for mui
 const muiTheme = getMuiTheme({

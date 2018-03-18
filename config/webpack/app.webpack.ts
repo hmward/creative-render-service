@@ -3,11 +3,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as ManifestPlugin from 'webpack-manifest-plugin';
 
-// use runtime dependencies
-const nodeModules = {};
-fs.readdirSync('node_modules')
-  .filter((x) => ['.bin'].indexOf(x) === -1)
-  .forEach((mod) => nodeModules[mod] = 'commonjs ' + mod);
+const isProduction = process.env.NODE_ENV === 'production';
 
 const plugins = [
   new webpack.LoaderOptionsPlugin({
@@ -34,9 +30,7 @@ const plugins = [
 
 const config: webpack.Configuration = {
   bail: true,
-  mode: 'development',
-  target: 'node',
-  // externals: nodeModules,
+  mode: isProduction ? 'production' : 'development',
 
   devtool: 'source-map',
 
@@ -48,7 +42,7 @@ const config: webpack.Configuration = {
   entry: {
     app: [
       'whatwg-fetch',
-      'webpack-hot-middleware/client?reload=true',
+      'webpack-hot-middleware/client',
       './src/client.tsx',
       './src/vendor/main.ts',
     ],
@@ -127,6 +121,12 @@ const config: webpack.Configuration = {
   },
 
   plugins,
+
+  node: {
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty',
+  },
 };
 
 const copySync = (src, dest, overwrite) => {

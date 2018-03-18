@@ -8,8 +8,6 @@ const logger = new Logger();
 
 const server = express();
 
-console.log(process.env.NODE_ENV);
-
 /**********************************************************
 *                         Routes                          *
 **********************************************************/
