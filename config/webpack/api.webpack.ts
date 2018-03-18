@@ -1,7 +1,6 @@
 import * as webpack from 'webpack';
 import * as path from 'path';
 import * as fs from 'fs';
-import * as CleanWebpackPlugin from 'clean-webpack-plugin';
 
 // use runtime dependencies
 const nodeModules = {};
@@ -9,12 +8,8 @@ fs.readdirSync('node_modules')
   .filter((x) => ['.bin'].indexOf(x) === -1)
   .forEach((mod) => nodeModules[mod] = 'commonjs ' + mod);
 
-const outputDir = 'build/api';
-const plugins = [
-  new CleanWebpackPlugin([outputDir], {
-    root: process.cwd(),
-  }),
-];
+const outputDir = 'build';
+const plugins = [];
 
 const config: webpack.Configuration = {
   bail: true,
@@ -32,7 +27,7 @@ const config: webpack.Configuration = {
   output: {
     path: path.resolve(process.cwd(), outputDir),
     publicPath: path.resolve(process.cwd(), outputDir),
-    filename: 'index.js',
+    filename: 'api.js',
     libraryTarget: 'commonjs2',
   },
 

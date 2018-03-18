@@ -50,7 +50,7 @@ const config = {
       loader: 'tslint-loader'
     }, {
       test: /\.tsx?$/,
-      loader: 'react-hot-loader/webpack!awesome-typescript-loader'
+      loader: 'awesome-typescript-loader'
     }, {
       test: /\.jsx$/,
       loader: 'babel-loader'

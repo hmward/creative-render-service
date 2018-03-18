@@ -27,7 +27,7 @@ const config = {
 
   output: {
     path: path.resolve('./build/public'),
-    publicPath: '/public',
+    publicPath: '/public/',
     filename: 'js/[name].js',
     pathinfo: true
   },
@@ -45,7 +45,7 @@ const config = {
       loader: 'tslint-loader'
     }, {
       test: /\.tsx?$/,
-      loader: 'react-hot-loader/webpack!awesome-typescript-loader'
+      loader: 'ts-loader'
     }, {
       test: /\.jsx$/,
       loader: 'babel-loader'
