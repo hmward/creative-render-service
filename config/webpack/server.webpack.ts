@@ -4,8 +4,6 @@ import * as fs from 'fs';
 
 import * as serverConfig from '../main';
 
-const isProduction = process.env.NODE_ENV === 'production';
-
 // use runtime dependencies
 const nodeModules = {};
 fs.readdirSync('node_modules')
@@ -16,7 +14,7 @@ const plugins = [
   new webpack.DefinePlugin({
     'process.env': {
       VERSION: JSON.stringify(require('../../package.json').version),
-      ENV: JSON.stringify(serverConfig.env),
+      NODE_ENV: JSON.stringify(serverConfig.env),
       HOST: JSON.stringify(serverConfig.host),
       PORT: JSON.stringify(serverConfig.port),
       API_HOST: JSON.stringify(serverConfig.apiHost),
@@ -27,7 +25,7 @@ const plugins = [
 
 const config: webpack.Configuration = {
   bail: true,
-  mode: isProduction ? 'production' : 'development',
+  mode: 'development',
   target: 'node',
   externals: nodeModules,
 

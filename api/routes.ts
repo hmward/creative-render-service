@@ -27,7 +27,7 @@ router.use((req, res, next) => {
 ********************************************************/
 // no sub routes
 // serve asset bundles
-router.use('/assets', express.static(path.join(__dirname, 'static/assets')));
+router.use('/assets', express.static(path.join(process.cwd(), 'api/static/assets')));
 
 // Error handling
 router.use((err, _1, res, _2) => {

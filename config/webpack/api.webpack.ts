@@ -35,7 +35,7 @@ const config: webpack.Configuration = {
     rules: [{
       test: /\.ts$/,
       exclude: /node_modules/,
-      loader: 'awesome-typescript-loader',
+      loader: 'ts-loader',
     }],
   },
 

@@ -21,7 +21,7 @@ import { Html } from './app/containers';
 import Logger from '../api/utils/Logger';
 
 const manifest = require('../build/manifest.json');
-const { ENV, HOST, PORT, API_HOST, API_PORT } = process.env;
+const { NODE_ENV, HOST, PORT, API_HOST, API_PORT } = process.env;
 const serviceAddress = `http://${API_HOST}:${API_PORT}`;
 
 const logger = new Logger();
@@ -30,7 +30,7 @@ const app = express();
 // enable gzip compression
 app.use(compression());
 
-if (ENV !== 'production') {
+if (NODE_ENV !== 'production') {
   const webpack = require('webpack');
   const webpackConfig = require('../config/webpack/app.webpack').default;
   const webpackCompiler = webpack(webpackConfig);
@@ -98,7 +98,7 @@ app.listen(PORT, (err) => {
     logger.error('Failed to start the web server.', err);
   } else {
     logger.info(
-      `Running ${ENV} Web server, listening at http://${HOST}:${PORT}\n`,
+      `Running ${NODE_ENV} Web server, listening at http://${HOST}:${PORT}\n`,
     );
   }
 });

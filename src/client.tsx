@@ -39,6 +39,6 @@ const render = (routes) => {
 
 render(routes);
 
-if (module.hot) {
+if (process.env.NODE_ENV !== 'production' && module.hot) {
   module.hot.accept('./app/routes', () => render(require('./app/routes').default));
 }

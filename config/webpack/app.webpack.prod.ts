@@ -19,16 +19,14 @@ const plugins = [
     'process.env': {
       VERSION: JSON.stringify(require('../../package.json').version),
       BROWSER: JSON.stringify(true),
-      NODE_ENV: JSON.stringify('development'),
+      NODE_ENV: JSON.stringify('production'),
     },
   }),
-  new webpack.HotModuleReplacementPlugin(),
-  new webpack.NoEmitOnErrorsPlugin(),
 ];
 
 const config: webpack.Configuration = {
   bail: true,
-  mode: 'development',
+  mode: 'production',
 
   devtool: 'source-map',
 
@@ -38,11 +36,18 @@ const config: webpack.Configuration = {
   },
 
   entry: {
-    app: [
-      'whatwg-fetch',
-      'webpack-hot-middleware/client',
-      './src/client.tsx',
+    app: ['whatwg-fetch', './src/client.tsx'],
+    vendor: [
       './src/vendor/main.ts',
+      'react',
+      'react-dom',
+      'react-router',
+      'react-helmet',
+      'react-redux',
+      'react-router-redux',
+      'redux',
+      'redux-connect',
+      'redux-thunk',
     ],
   },
 
@@ -50,7 +55,6 @@ const config: webpack.Configuration = {
     path: path.resolve('./build/public'),
     publicPath: '/public/',
     filename: 'js/[name].js',
-    pathinfo: true,
   },
 
   module: {
