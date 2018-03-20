@@ -12,6 +12,8 @@ import 'whatwg-fetch';
 
 import { Footer } from 'components';
 
+import { cube } from './test';
+
 import routeActions from 'redux/actions/routeAction';
 
 // theme for mui
@@ -33,6 +35,8 @@ interface IProps {
   // route actions
   changeRoute(route: string);
 }
+
+cube(3);
 
 /**
  * @class

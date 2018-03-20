@@ -3,7 +3,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as ManifestPlugin from 'webpack-manifest-plugin';
 
-const plugins = [
+const plugins: webpack.Plugin[] = [
   new webpack.LoaderOptionsPlugin({
     debug: true,
     options: {
@@ -39,6 +39,9 @@ const config: webpack.Configuration = {
     app: ['whatwg-fetch', './src/client.tsx'],
     vendor: [
       './src/vendor/main.ts',
+      'three',
+    ],
+    vendor_react: [
       'react',
       'react-dom',
       'react-router',
