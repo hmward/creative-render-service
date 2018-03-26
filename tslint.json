@@ -21,6 +21,7 @@
     ],
     "object-literal-shorthand": false,
     "object-literal-sort-keys": false,
+    "no-bitwise": false,
     "no-shadowed-variable": false,
     "no-console": [
       false
