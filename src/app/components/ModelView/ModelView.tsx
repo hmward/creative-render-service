@@ -1,8 +1,10 @@
 import * as React from 'react';
 import * as THREE from 'three';
 
-import MTLLoader from 'lib/MTLLoader';
-import OBJLoader from 'lib/OBJLoader';
+// import MTLLoader from 'lib/MTLLoader';
+// import OBJLoader from 'lib/OBJLoader';
+import FBXLoader from 'lib/FBXLoader';
+import TGALoader from 'lib/TGALoader';
 import Sky from 'lib/Sky';
 
 const OrbitControls = require('three-orbit-controls')(THREE);
@@ -42,9 +44,9 @@ export class ModelView extends React.Component<IModelViewProps, {}> {
     this.init();
     this.initLight();
     this.initSky();
-    this.loadModel();
+    // this.loadModel();
+    this.loadFbx();
     // this.loadModel2();
-    this.initFloor();
 
     this.update();
   }
@@ -105,21 +107,46 @@ export class ModelView extends React.Component<IModelViewProps, {}> {
     this.scene.add(sky);
   }
 
-  private loadModel() {
-    const mtlLoader = new MTLLoader();
-    mtlLoader.setTexturePath('api/assets/');
-    mtlLoader.load('api/assets/r2-d2.mtl', (materials) => {
-      console.log(materials);
-      materials.preload();
+  // private loadModel() {
+  //   const mtlLoader = new MTLLoader();
+  //   mtlLoader.setTexturePath('api/assets/');
+  //   mtlLoader.load('api/assets/r2-d2.mtl', (materials) => {
+  //     console.log(materials);
+  //     materials.preload();
 
-      const objLoader = new OBJLoader();
-      objLoader.setMaterials(materials);
-      objLoader.load('api/assets/r2-d2.obj', (object) => {
-        console.log(object);
-        this.scene.add(object);
+  //     const objLoader = new OBJLoader();
+  //     objLoader.setMaterials(materials);
+  //     objLoader.load('api/assets/r2-d2.obj', (object) => {
+  //       console.log(object);
+  //       this.scene.add(object);
 
-        object.position.y -= 60;
+  //       object.position.y -= 60;
+  //     });
+  //   });
+  // }
+
+  private loadFbx() {
+    const tgaLoader = new TGALoader();
+    const fbxLoader = new FBXLoader();
+
+    const map = tgaLoader.load('api/assets/fbx/Wood_D2.tga');
+    const normalMap = tgaLoader.load('api/assets/fbx/Wood_N.tga');
+    // const envMap = tgaLoader.load('api/assets/fbx/Wood_E.tga');
+
+    fbxLoader.load('api/assets/fbx/BFW_LivR_Floor01.FBX', (object) => {
+      object.traverse((child) => {
+        if (child.isMesh) {
+          child.castShadow = true;
+          child.receiveShadow = true;
+          child.material.map = map;
+          child.material.normalMap = normalMap;
+          // child.material.emissiveMap = envMap;
+          // child.material = materials;
+          // child.needUpdate = true;
+        }
       });
+      console.log(object);
+      this.scene.add(object);
     });
   }
 
@@ -130,17 +157,6 @@ export class ModelView extends React.Component<IModelViewProps, {}> {
   //     this.scene.add(object);
   //   });
   // }
-
-  private initFloor() {
-    const floorMaterial = new THREE.MeshPhongMaterial({
-      color: new THREE.Color(0xffffff),
-    });
-    const floorMesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(100, 100), floorMaterial);
-    floorMesh.position.setY(-80);
-    floorMesh.rotation.x = - Math.PI / 2;
-
-    this.scene.add(floorMesh);
-  }
 
   private update() {
     requestAnimationFrame(() => this.update());
